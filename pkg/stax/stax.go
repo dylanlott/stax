@@ -11,6 +11,7 @@ var _ Stax = (*Stack)(nil)
 
 // Item is an element in the stack
 type Item struct {
+	Instruction string
 }
 
 // Stack holds a stack of items
