@@ -43,4 +43,24 @@ func TestStax(t *testing.T) {
 		got := s.Pop()
 		is.Equal(got.Instruction, "baz")
 	})
+
+	t.Run("test peek", func(t *testing.T) {
+		is := is.New(t)
+		items := []Item{
+			Item{
+				Instruction: "foo",
+			},
+			Item{
+				Instruction: "bar",
+			},
+			Item{
+				Instruction: "biz",
+			},
+		}
+		s := NewStack(items)
+		got := s.Peek()
+		is.Equal(got.Instruction, "biz")
+		popped := s.Pop()
+		is.Equal(popped.Instruction, "biz")
+	})
 }
