@@ -1,5 +1,7 @@
 package stax
 
+import "context"
+
 // Stax is a stack machine interface
 type Stax interface {
 	Push(item Item)
@@ -8,6 +10,11 @@ type Stax interface {
 }
 
 var _ Stax = (*Stack)(nil)
+
+// Interpreter defines a Run function that runs a Stax.
+type Interpreter interface {
+	Run(ctx context.Context) error
+}
 
 // Item is an element in the stack
 type Item struct {
@@ -45,6 +52,10 @@ func (s *Stack) Pop() Item {
 
 // Peek returns the top of the stack but does not remove it
 func (s *Stack) Peek() Item {
+	if len(s.stack) == 0 {
+		// TODO: what should we do here? exit program when we add instruction set?
+		panic("not impl")
+	}
 	x := s.stack[len(s.stack)-1]
 	return x
 }
